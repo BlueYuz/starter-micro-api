@@ -118,7 +118,7 @@ async function handler(request) {
 	}
 
 	// Build the URL
-	const api_url = 'https://api.telegram.org/bot' + bot_token + '/' + api_method + query;
+	const api_url = 'https://api.telegram.org/bot' + bot_token + '/' + api_method + '?' + request['body_param'];
 
 	// Get the response from API.
 	//const response = await fetch(api_url, request['body_param']);
@@ -131,7 +131,7 @@ async function handler(request) {
 	    body: JSON.stringify(request['body_param'])
 	  });
 	const result = await response.text();
-	console.log(request['body_param']);
+	console.log(api_url);
 
 	return result;
 }
@@ -174,7 +174,7 @@ http.createServer(async function (req, res) {
 
         req.on('end', async function () {
 			var post= qs.parse(body);
-			req['body_param'] = post;
+			req['body_param'] = body;
             var r = await handleRequest(req);
 			console.log(r.toString());
 			res.write(r.toString());
