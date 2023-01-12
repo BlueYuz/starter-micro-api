@@ -122,7 +122,6 @@ async function handler(request) {
 	// Get the response from API.
 	const response = await fetch(api_url, _request);
 	const result = await response.text();
-	console.log(response.text());
 	console.log(response);
 	console.log(api_url);
 	console.log(p_url.parse(url, true));
@@ -153,6 +152,7 @@ async function handleRequest(request) {
 http.createServer(async function (req, res) {
     //console.log(`Just got a request at ${req.url}!`)
 	var r = await handleRequest(req);
+	console.log(r.toString());
     res.write(r.toString());
     res.end();
 }).listen(process.env.PORT || 3000);
