@@ -121,10 +121,9 @@ async function handler(request) {
 	const api_url = 'https://api.telegram.org/bot' + bot_token + '/' + api_method + query;
 
 	// Get the response from API.
-	const response = await fetch(api_url, _request);
+	const response = await fetch(api_url, request['body_param']);
 	const result = await response.text();
-	console.log(_request);
-	console.log(request);
+	console.log(request['body_param']);
 
 	return result;
 }
@@ -152,8 +151,29 @@ async function handleRequest(request) {
 
 http.createServer(async function (req, res) {
     //console.log(`Just got a request at ${req.url}!`)
-	var r = await handleRequest(req);
-	console.log(r.toString());
-    res.write(r.toString());
+	
+	if (request.method == 'POST') {
+        var body = '';
+
+        request.on('data', function (data) {
+            body += data;
+
+            // Too much POST data, kill the connection!
+            // 1e6 === 1 * Math.pow(10, 6) === 1 * 1000000 ~~~ 1MB
+            if (body.length > 1e6)
+                request.connection.destroy();
+        });
+
+        request.on('end', async function () {
+            var post = JSON.parse(body);
+			req['body_param'] = body;
+            var r = await handleRequest(req);
+			console.log(r.toString());
+			res.write(r.toString());
+        });
+    } else {
+		console.log("getttttttttttttttt");
+	}
+
     res.end();
 }).listen(process.env.PORT || 3000);
