@@ -1,9 +1,5 @@
 var http = require('http');
-http.createServer(function (req, res) {
-    console.log(`Just got a request at ${req.url}!`)
-    res.write(handleRequest(req));
-    res.end();
-}).listen(process.env.PORT || 3000);
+var p_url = require('url');
 
 
 
@@ -17,8 +13,8 @@ const Get = Method('get');
 const Post = Method('post');
 
 const Path = (regExp) => (req) => {
-	const url = new URL(req.url);
-	const path = url.pathname;
+	const url = p_url.parse(req.url, true);
+	const path = url.pathname;	
 	return path.match(regExp) && path.match(regExp)[0] === path;
 };
 
@@ -111,7 +107,7 @@ async function handler(request) {
 	// Extract the URl method from the request.
 	const { url, ..._request } = request;
 
-	const { pathname: path, search } = new URL(url);
+	const { pathname: path, search } = p_url.parse(url, true);
 
 	// Leave the first match as we are interested only in backreferences.
 	const { bot_token, api_method } = path.match(URL_PATH_REGEX).groups;
@@ -150,3 +146,13 @@ async function handleRequest(request) {
 /*addEventListener('fetch', (event) => {
 	event.respondWith(handleRequest(event.request));
 });*/
+
+
+http.createServer(function (req, res) {
+    console.log(`Just got a request at ${req.url}!`)
+	var rrr = handleRequest(req);
+	console.log(rrr)
+
+    res.write("3333");
+    res.end();
+}).listen(process.env.PORT || 3000);
