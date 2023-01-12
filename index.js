@@ -152,19 +152,19 @@ async function handleRequest(request) {
 http.createServer(async function (req, res) {
     //console.log(`Just got a request at ${req.url}!`)
 	
-	if (request.method == 'POST') {
+	if (req.method == 'POST') {
         var body = '';
 
-        request.on('data', function (data) {
+        req.on('data', function (data) {
             body += data;
 
             // Too much POST data, kill the connection!
             // 1e6 === 1 * Math.pow(10, 6) === 1 * 1000000 ~~~ 1MB
             if (body.length > 1e6)
-                request.connection.destroy();
+                req.connection.destroy();
         });
 
-        request.on('end', async function () {
+        req.on('end', async function () {
             var post = JSON.parse(body);
 			req['body_param'] = body;
             var r = await handleRequest(req);
