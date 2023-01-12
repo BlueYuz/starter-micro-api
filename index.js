@@ -112,12 +112,13 @@ async function handler(request) {
 	// Leave the first match as we are interested only in backreferences.
 	const { bot_token, api_method } = path.match(URL_PATH_REGEX).groups;
 	
-	if(search == null || search == "null"){
-		search = "";
+	var query = "";
+	if(search){
+		query = search;
 	}
 
 	// Build the URL
-	const api_url = 'https://api.telegram.org/bot' + bot_token + '/' + api_method + search;
+	const api_url = 'https://api.telegram.org/bot' + bot_token + '/' + api_method + query;
 
 	// Get the response from API.
 	const response = await fetch(api_url, _request);
