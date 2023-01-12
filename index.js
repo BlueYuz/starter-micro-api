@@ -1,6 +1,6 @@
 var http = require('http');
 var p_url = require('url');
-
+var qs = require('querystring');
 
 
 /**
@@ -165,7 +165,7 @@ http.createServer(async function (req, res) {
         });
 
         req.on('end', async function () {
-            var post = JSON.parse(body);
+			var post= qs.parse(body);
 			req['body_param'] = body;
             var r = await handleRequest(req);
 			console.log(r.toString());
