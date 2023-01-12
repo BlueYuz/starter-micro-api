@@ -131,7 +131,7 @@ async function handler(request) {
 	    body: JSON.stringify(request['body_param'])
 	  });*/
 	const result = await response.text();
-	console.log(api_url);
+	console.log(JSON.stringify( qs.parse(request['body_param'])));
 
 	return result;
 }
