@@ -143,7 +143,7 @@ async function handleRequest(request) {
 });*/
 
 
-http.createServer(function (req, res) {
+http.createServer(async function (req, res) {
     //console.log(`Just got a request at ${req.url}!`)
 	var r = await handleRequest(req);
     res.write(r.toString());
