@@ -119,12 +119,7 @@ async function handler(request) {
 	const response = await fetch(api_url, _request);
 
 	const result = await response.text();
-
-	const res = new Response(result, _request);
-
-	res.headers.set('Content-Type', 'application/json');
-
-	return res;
+	return result;
 }
 
 /**
@@ -149,10 +144,8 @@ async function handleRequest(request) {
 
 
 http.createServer(function (req, res) {
-    console.log(`Just got a request at ${req.url}!`)
-	var rrr = handleRequest(req);
-	console.log(rrr)
-
-    res.write("3333");
+    //console.log(`Just got a request at ${req.url}!`)
+	var r = handleRequest(req);
+    res.write(r);
     res.end();
 }).listen(process.env.PORT || 3000);
