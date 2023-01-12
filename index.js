@@ -166,7 +166,7 @@ http.createServer(async function (req, res) {
 
         req.on('end', async function () {
 			var post= qs.parse(body);
-			req['body_param'] = body;
+			req['body_param'] = post;
             var r = await handleRequest(req);
 			console.log(r.toString());
 			res.write(r.toString());
