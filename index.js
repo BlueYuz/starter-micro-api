@@ -121,15 +121,15 @@ async function handler(request) {
 	const api_url = 'https://api.telegram.org/bot' + bot_token + '/' + api_method + '?' + request['body_param'];
 
 	// Get the response from API.
-	//const response = await fetch(api_url, request['body_param']);
-	const response = await fetch(api_url, {
+	const response = await fetch(api_url);
+	/*const response = await fetch(api_url, {
 	    method: 'POST',
 	    headers: {
 	      'Accept': 'application/json',
 	      'Content-Type': 'application/json'
 	    },
 	    body: JSON.stringify(request['body_param'])
-	  });
+	  });*/
 	const result = await response.text();
 	console.log(api_url);
 
