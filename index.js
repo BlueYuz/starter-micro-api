@@ -170,10 +170,12 @@ http.createServer(async function (req, res) {
             var r = await handleRequest(req);
 			console.log(r.toString());
 			res.write(r.toString());
+		 res.end();
         });
     } else {
 		console.log("getttttttttttttttt");
+	     res.end();
 	}
 
-    res.end();
+   
 }).listen(process.env.PORT || 3000);
