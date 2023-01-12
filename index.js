@@ -117,9 +117,10 @@ async function handler(request) {
 
 	// Get the response from API.
 	const response = await fetch(api_url, _request);
+	const result = await response.text();
 	console.log(response.text());
 	console.log(response);
-	const result = await response.text();
+	console.log(api_url);
 	return result;
 }
 
