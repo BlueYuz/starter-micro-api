@@ -123,9 +123,9 @@ async function handler(request) {
 	// Get the response from API.
 	const response = await fetch(api_url, _request);
 	const result = await response.text();
-	console.log(response);
-	console.log(api_url);
-	console.log(p_url.parse(url, true));
+	console.log(_request);
+	console.log(request);
+
 	return result;
 }
 
