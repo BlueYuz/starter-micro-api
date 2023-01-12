@@ -112,7 +112,7 @@ async function handler(request) {
 	// Leave the first match as we are interested only in backreferences.
 	const { bot_token, api_method } = path.match(URL_PATH_REGEX).groups;
 	
-	if(search || search == "null"){
+	if(search == null || search == "null"){
 		search = "";
 	}
 
