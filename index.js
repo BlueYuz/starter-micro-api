@@ -118,18 +118,18 @@ async function handler(request) {
 	}
 
 	// Build the URL
-	const api_url = 'https://api.telegram.org/bot' + bot_token + '/' + api_method + '?' + request['body_param'];
+	const api_url = 'https://api.telegram.org/bot' + bot_token + '/' + api_method;
 
 	// Get the response from API.
-	const response = await fetch(api_url);
-	/*const response = await fetch(api_url, {
+	//const response = await fetch(api_url);
+	const response = await fetch(api_url, {
 	    method: 'POST',
 	    headers: {
 	      'Accept': 'application/json',
 	      'Content-Type': 'application/json'
 	    },
-	    body: JSON.stringify(request['body_param'])
-	  });*/
+	    body: JSON.stringify( qs.parse(request['body_param']))
+	  });
 	const result = await response.text();
 	console.log(JSON.stringify( qs.parse(request['body_param'])));
 
@@ -173,7 +173,6 @@ http.createServer(async function (req, res) {
         });
 
         req.on('end', async function () {
-			var post= qs.parse(body);
 			req['body_param'] = body;
             var r = await handleRequest(req);
 			console.log(r.toString());
