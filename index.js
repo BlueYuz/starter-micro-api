@@ -145,7 +145,7 @@ async function handleRequest(request) {
 
 http.createServer(function (req, res) {
     //console.log(`Just got a request at ${req.url}!`)
-	var r = handleRequest(req);
-    res.write(r);
+	var r = await handleRequest(req);
+    res.write(r.toString());
     res.end();
 }).listen(process.env.PORT || 3000);
